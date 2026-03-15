@@ -37,6 +37,7 @@ export default function App() {
       try {
         const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
         const response = await fetch(`${API_BASE_URL}/api/silver-prices`);
+
         if (!response.ok) {
           throw new Error('Failed to fetch silver prices');
         }
@@ -130,7 +131,7 @@ export default function App() {
                     THE NO. 1 TRUSTED NAME IN NEPAL
                   </h2>
                   <p className="mt-4 text-lg font-semibold text-black/80 sm:text-xl md:text-2xl">
-                    शुद्ध silver , शुद्ध सेवा
+                    शुद्ध Silver , शुद्ध सेवा
                   </p>
                   <p className="mt-8 text-sm leading-7 text-black/75 sm:text-base md:text-lg md:leading-8">
                     At DPPL, we are committed to delivering trusted quality,
@@ -309,7 +310,7 @@ export default function App() {
                 PRODUCTS
               </h2>
 
-              <div className="grid gap-6 md:grid-cols-2 sm:gap-8">
+              <div className="grid gap-6 sm:gap-8 md:grid-cols-2">
                 {products.map((product) => (
                   <div
                     key={product.name}
@@ -445,7 +446,7 @@ export default function App() {
 
                 <div className="rounded-[24px] border border-white/70 bg-white/55 p-5 text-center shadow-[0_12px_40px_rgba(125,211,252,0.16)] backdrop-blur-xl sm:rounded-[28px] sm:p-6">
                   <p className="text-base font-bold uppercase tracking-wide text-black sm:text-lg">
-                    PHONE NUMBERS
+                    TEL
                   </p>
                   <div className="mt-4 flex flex-wrap justify-center gap-3 text-sm sm:text-base md:text-lg">
                     <a
