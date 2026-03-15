@@ -152,7 +152,7 @@ export default function App() {
                         <p className="text-sm font-bold uppercase text-black/70 md:text-base">
                           {dateInfo.nepali.day || '-'}
                         </p>
-                        <p className="mt-2 text-base font-bold uppercase text-black sm:text-lg">
+                        <p className="mt-2 text-base font-extrabold uppercase text-black sm:text-lg">
                           {dateInfo.nepali.date || '-'}
                         </p>
                       </div>
