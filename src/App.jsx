@@ -1,5 +1,31 @@
 import { useEffect, useState } from 'react';
-import { NavLink, Route, Routes, Navigate, useLocation } from 'react-router-dom';
+import {
+  NavLink,
+  Route,
+  Routes,
+  Navigate,
+  useLocation,
+} from 'react-router-dom';
+
+function setMetaTag(name, content) {
+  let element = document.querySelector(`meta[name="${name}"]`);
+  if (!element) {
+    element = document.createElement('meta');
+    element.setAttribute('name', name);
+    document.head.appendChild(element);
+  }
+  element.setAttribute('content', content);
+}
+
+function setCanonical(url) {
+  let link = document.querySelector('link[rel="canonical"]');
+  if (!link) {
+    link = document.createElement('link');
+    link.setAttribute('rel', 'canonical');
+    document.head.appendChild(link);
+  }
+  link.setAttribute('href', url);
+}
 
 function Layout({ children, menuItems }) {
   return (
@@ -18,7 +44,7 @@ function Layout({ children, menuItems }) {
           >
             <img
               src="/logo.png"
-              alt="Diamond Palace Pvt Ltd logo"
+              alt="DPPL LOGO"
               className="h-10 w-10 rounded-full object-cover shadow-md sm:h-12 sm:w-12"
             />
             <span className="text-lg font-bold uppercase tracking-wide text-black sm:text-xl">
@@ -116,14 +142,18 @@ function HomePage({ silverPrices, dateInfo, priceError }) {
 
                 <div className="grid grid-cols-2 gap-3">
                   <div className="rounded-[18px] border border-white/70 bg-white/50 p-3 text-center">
-                    <p className="text-xs font-bold uppercase text-black/70">SALE</p>
+                    <p className="text-xs font-bold uppercase text-black/70">
+                      SALE
+                    </p>
                     <p className="mt-2 text-sm font-bold text-black">
                       NPR {silverPrices.sale.tola1}
                     </p>
                   </div>
 
                   <div className="rounded-[18px] border border-white/70 bg-white/50 p-3 text-center">
-                    <p className="text-xs font-bold uppercase text-black/70">PURCHASE</p>
+                    <p className="text-xs font-bold uppercase text-black/70">
+                      PURCHASE
+                    </p>
                     <p className="mt-2 text-sm font-bold text-black">
                       NPR {silverPrices.purchase.tola1}
                     </p>
@@ -140,14 +170,18 @@ function HomePage({ silverPrices, dateInfo, priceError }) {
 
                 <div className="grid grid-cols-2 gap-3">
                   <div className="rounded-[18px] border border-white/70 bg-white/50 p-3 text-center">
-                    <p className="text-xs font-bold uppercase text-black/70">SALE</p>
+                    <p className="text-xs font-bold uppercase text-black/70">
+                      SALE
+                    </p>
                     <p className="mt-2 text-sm font-bold text-black">
                       NPR {silverPrices.sale.gram10}
                     </p>
                   </div>
 
                   <div className="rounded-[18px] border border-white/70 bg-white/50 p-3 text-center">
-                    <p className="text-xs font-bold uppercase text-black/70">PURCHASE</p>
+                    <p className="text-xs font-bold uppercase text-black/70">
+                      PURCHASE
+                    </p>
                     <p className="mt-2 text-sm font-bold text-black">
                       NPR {silverPrices.purchase.gram10}
                     </p>
@@ -239,9 +273,13 @@ function HomePage({ silverPrices, dateInfo, priceError }) {
 function ProductsPage({ products }) {
   return (
     <section className="w-full rounded-[28px] border border-blue-100/80 bg-white/35 p-4 backdrop-blur-xl shadow-[0_20px_80px_rgba(186,230,253,0.55),0_10px_40px_rgba(59,130,246,0.08)] sm:rounded-[32px] sm:p-6 md:p-8">
-      <h2 className="mb-6 text-center text-2xl font-bold uppercase tracking-wide text-black sm:mb-8 sm:text-3xl md:text-4xl">
+      <h2 className="mb-4 text-center text-2xl font-bold uppercase tracking-wide text-black sm:mb-6 sm:text-3xl md:text-4xl">
         PRODUCTS
       </h2>
+      <p className="mx-auto mb-8 max-w-3xl text-center text-sm leading-7 text-black/75 sm:text-base md:text-lg">
+        DPPL supplies silver bars for investment and silver grains for business
+        purposes in Nepal with trusted quality and dependable service.
+      </p>
 
       <div className="grid gap-6 sm:gap-8 md:grid-cols-2">
         {products.map((product) => (
@@ -252,7 +290,11 @@ function ProductsPage({ products }) {
             <div className="flex min-h-[260px] items-center justify-center rounded-[20px] bg-white/70 p-4 sm:min-h-[340px] sm:rounded-[24px] sm:p-6 md:min-h-[420px]">
               <img
                 src={product.image}
-                alt={product.name}
+                alt={
+                  product.name === 'SILVER BAR'
+                    ? 'DPPL SILVER BAR PRODUCT IMAGE'
+                    : 'DPPL SILVER GRAINS PRODUCT IMAGE'
+                }
                 className="max-h-[220px] w-auto object-contain sm:max-h-[300px] md:max-h-[380px]"
               />
             </div>
@@ -381,7 +423,7 @@ function ContactPage() {
 
         <div className="rounded-[24px] border border-white/70 bg-white/55 p-5 text-center shadow-[0_12px_40px_rgba(125,211,252,0.16)] backdrop-blur-xl sm:rounded-[28px] sm:p-6">
           <p className="text-base font-bold uppercase tracking-wide text-black sm:text-lg">
-            PHONE NUMBERS
+            TEL
           </p>
           <div className="mt-4 flex flex-wrap justify-center gap-3 text-sm sm:text-base md:text-lg">
             <a
@@ -507,14 +549,38 @@ export default function App() {
   }, []);
 
   useEffect(() => {
-    if (location.pathname === '/') return;
-    const titles = {
-      '/home': 'DPPL - Home',
-      '/products': 'DPPL - Products',
-      '/about-us': 'DPPL - About Us',
-      '/contact': 'DPPL - Contact',
+    const routeMeta = {
+      '/home': {
+        title: 'DPPL - Silver Bar and Silver Grains in Nepal',
+        description:
+          'DPPL offers trusted silver bars for investment and silver grains for business purposes in Nepal.',
+        canonical: 'https://dppl.com/home',
+      },
+      '/products': {
+        title: 'DPPL Products - Silver Bar and Silver Grains',
+        description:
+          'Explore DPPL products including silver bar options and silver grains with trusted quality in Nepal.',
+        canonical: 'https://dppl.com/products',
+      },
+      '/about-us': {
+        title: 'About DPPL - Trusted Silver Business in Nepal',
+        description:
+          'Learn about DPPL, established in 2080 B.S., and our journey from silver grains to silver bars for investment.',
+        canonical: 'https://dppl.com/about-us',
+      },
+      '/contact': {
+        title: 'Contact DPPL - New Road, Kathmandu',
+        description:
+          'Contact DPPL by email, phone, or WhatsApp. Visit us at 5th Floor, Sasa Complex, New Road, Kathmandu.',
+        canonical: 'https://dppl.com/contact',
+      },
     };
-    document.title = titles[location.pathname] || 'DPPL';
+
+    const meta = routeMeta[location.pathname] || routeMeta['/home'];
+
+    document.title = meta.title;
+    setMetaTag('description', meta.description);
+    setCanonical(meta.canonical);
   }, [location.pathname]);
 
   return (
