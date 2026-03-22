@@ -423,7 +423,7 @@ function ContactPage() {
 
         <div className="rounded-[24px] border border-white/70 bg-white/55 p-5 text-center shadow-[0_12px_40px_rgba(125,211,252,0.16)] backdrop-blur-xl sm:rounded-[28px] sm:p-6">
           <p className="text-base font-bold uppercase tracking-wide text-black sm:text-lg">
-            TEL
+            PHONE NUMBERS
           </p>
           <div className="mt-4 flex flex-wrap justify-center gap-3 text-sm sm:text-base md:text-lg">
             <a
